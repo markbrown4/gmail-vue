@@ -1,6 +1,6 @@
 <template>
   <ul id="threads">
-    <li v-for="thread in threads" :class="{ unread: thread.unread, selected: thread.selected }">
+    <li v-for="thread in threads" :class="{ unread: thread.unread, selected: isSelected(thread) }">
       <router-link :to="`/threads/${thread.id}`">
         <time>{{ thread.lastMessage.createdAt | smartDate }}</time>
         <span class="check" v-on:click.stop.prevent="toggleSelected(thread)"></span>
@@ -25,11 +25,19 @@ export default {
     this.$store.dispatch('fetchThreads')
   },
   computed: {
-    threads() { return this.$store.state.threads }
+    threads() {
+      return this.$store.state.threads
+    },
+    selectedThreadIds() {
+      return this.$store.state.selectedThreadIds
+    },
   },
   methods: {
+    isSelected(thread) {
+      return this.selectedThreadIds.indexOf(thread.id) > -1
+    },
     toggleSelected(thread) {
-      this.$set(thread, 'selected', !thread.selected)
+      this.$store.commit('THREADS_SELECT_THREAD', thread.id)
     }
   }
 }

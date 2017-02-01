@@ -40,43 +40,34 @@ export default {
     threads() {
       return this.$store.state.threads
     },
+    selectedThreadIds() {
+      return this.$store.state.selectedThreadIds
+    },
     page() {
       return this.$store.state.page
     },
     someSelected() {
-      const selected = this.threads.filter(thread => thread.selected).length
-      return selected > 0
+      return this.selectedThreadIds.length > 0
     },
     noneSelected() {
-      const selected = this.threads.filter(thread => thread.selected).length
-      return selected == 0
+      return this.selectedThreadIds.length == 0
     },
     allSelected() {
-      const selected = this.threads.filter(thread => thread.selected).length
-      return this.threads.length > 0 && selected == this.threads.length
+      return this.selectedThreadIds.length > 0 && this.selectedThreadIds.length == this.threads.length
     }
   },
   methods: {
     selectAll() {
-      console.log('all')
-      this.$store.state.threads.forEach(thread => {
-        this.$set(thread, 'selected', true)
-      })
+      this.$store.commit('THREADS_SELECT_ALL')
     },
     selectNone() {
-      this.$store.state.threads.forEach(thread => {
-        this.$set(thread, 'selected', false)
-      })
+      this.$store.commit('THREADS_SELECT_NONE')
     },
     selectUnread() {
-      this.$store.state.threads.forEach(thread => {
-        this.$set(thread, 'selected', thread.unread)
-      })
+      this.$store.commit('THREADS_SELECT_UNREAD')
     },
     selectRead() {
-      this.$store.state.threads.forEach(thread => {
-        this.$set(thread, 'selected', !thread.unread)
-      })
+      this.$store.commit('THREADS_SELECT_READ')
     },
     bulkToggle() {
       if (this.noneSelected) {

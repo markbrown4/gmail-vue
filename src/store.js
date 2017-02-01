@@ -7,6 +7,7 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     threads: [],
+    selectedThreadIds: [],
     thread: null,
     loading: false,
     page: {
@@ -23,6 +24,26 @@ const store = new Vuex.Store({
         to: threads.length,
         count: threads.length
       }
+    },
+    THREADS_SELECT_THREAD: (state, id) => {
+      const index = state.selectedThreadIds.indexOf(id)
+      if (index > -1) {
+        state.selectedThreadIds.splice(index, 1)
+      } else {
+        state.selectedThreadIds.push(id)
+      }
+    },
+    THREADS_SELECT_ALL: (state) => {
+      state.selectedThreadIds = state.threads.map(t => t.id)
+    },
+    THREADS_SELECT_NONE: (state) => {
+      state.selectedThreadIds = []
+    },
+    THREADS_SELECT_READ: (state) => {
+      state.selectedThreadIds = state.threads.filter(t => t.unread).map(t => t.id)
+    },
+    THREADS_SELECT_UNREAD: (state) => {
+      state.selectedThreadIds = state.threads.filter(t => !t.unread).map(t => t.id)
     },
     THREAD_FETCHING: (state) => {
       state.thread = null
