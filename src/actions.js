@@ -21,8 +21,16 @@ const search = _.debounce(({ commit }, query) => {
   commit('SEARCH_QUERY', query)
 }, 300)
 
+const flash = ({ commit }, message, timeout = 3000) => {
+  commit('FLASH_SHOW', message)
+  setTimeout(() => {
+    commit('FLASH_HIDE', message)
+  }, timeout)
+}
+
 export default {
   fetchThreads,
   fetchThread,
-  search
+  search,
+  flash
 }

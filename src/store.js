@@ -6,11 +6,11 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    query: '',
     threads: [],
     selectedThreadIds: [],
     thread: null,
-    loading: false,
+    flashes: [],
+    query: '',
     page: {
       from: 1,
       to: 1,
@@ -54,6 +54,16 @@ const store = new Vuex.Store({
     },
     SEARCH_QUERY: (state, query) => {
       state.query = query
+    },
+    FLASH_SHOW: (state, message) => {
+      console.log(message)
+      state.flashes.push(message)
+    },
+    FLASH_HIDE: (state, message) => {
+      const index = state.flashes.indexOf(message)
+      if (index > -1) {
+        state.flashes.splice(message, 1)
+      }
     }
   },
   actions

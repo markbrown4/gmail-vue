@@ -1,6 +1,6 @@
 <template>
   <div id="nav">
-    <a href class="compose">COMPOSE</a>
+    <a href class="compose" @click.prevent="compose">COMPOSE</a>
     <ul>
       <li class="active"><router-link to="/">Inbox</router-link></li>
       <li><a href>Sent Mail</a></li>
@@ -11,7 +11,14 @@
 </template>
 
 <script>
+import eventBus from '../event_bus'
+
 export default {
-  name: 'topnav'
+  name: 'topnav',
+  methods: {
+    compose() {
+      eventBus.$emit('composeMessage')
+    }
+  }
 }
 </script>

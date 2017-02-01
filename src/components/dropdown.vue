@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import eventBus from '../event_bus';
+import eventBus from '../event_bus'
 
 export default {
   name: 'drop-down',

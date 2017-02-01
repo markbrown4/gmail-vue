@@ -1,7 +1,7 @@
 <template>
-  <div id="compose" style="display: none">
+  <div id="compose" v-if="open">
     <div class="header">
-      <a class="close">×</a>
+      <a class="close" @click="close">×</a>
       <h2>New Message</h2>
     </div>
     <div>
@@ -50,18 +50,36 @@
       <textarea id="message_body" placeholder="Body"></textarea>
     </div>
     <div class="footer">
-      <input type="submit" class="btn primary-btn" value="Send">
+      <input type="submit" class="btn primary-btn" value="Send" @click="send">
     </div>
   </div>
 </template>
 
 <script>
+import eventBus from '../event_bus'
 import DropDown from './dropdown'
 
 export default {
   name: 'compose',
   components: {
     DropDown
+  },
+  data() {
+    return { open: false }
+  },
+  methods: {
+    close() {
+      this.open = false
+    },
+    send() {
+      this.close()
+      this.$store.dispatch('flash', 'Sending...')
+    }
+  },
+  created() {
+    eventBus.$on('composeMessage', () => {
+      this.open = true;
+    })
   }
 }
 </script>
