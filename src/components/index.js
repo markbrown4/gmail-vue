@@ -1,4 +1,4 @@
-import Header from './header';
+import Header from './header'
 import Nav from './nav'
 import SubHeader from './subheader'
 import Flash from './flash'

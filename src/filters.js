@@ -12,8 +12,8 @@ Vue.filter('smartDate', (date) => {
   }
 })
 
-Vue.filter('smartName', (person, fullName=false) => {
-  if (window.currentUser.email == person.email) {
+Vue.filter('smartName', (person, fullName = false) => {
+  if (window.currentUser.email === person.email) {
     return 'me'
   } else if (fullName) {
     return `${person.firstName} ${person.lastName}`.trim()
@@ -23,26 +23,25 @@ Vue.filter('smartName', (person, fullName=false) => {
 })
 
 const units = [
-  { name: "second", limit: 60, inSeconds: 1 },
-  { name: "minute", limit: 3600, inSeconds: 60 },
-  { name: "hour", limit: 86400, inSeconds: 3600  },
-  { name: "day", limit: 604800, inSeconds: 86400 },
-  { name: "week", limit: 2629743, inSeconds: 604800  },
-  { name: "month", limit: 31556926, inSeconds: 2629743 },
-  { name: "year", limit: null, inSeconds: 31556926 }
+  { name: 'second', limit: 60, inSeconds: 1 },
+  { name: 'minute', limit: 3600, inSeconds: 60 },
+  { name: 'hour', limit: 86400, inSeconds: 3600 },
+  { name: 'day', limit: 604800, inSeconds: 86400 },
+  { name: 'week', limit: 2629743, inSeconds: 604800 },
+  { name: 'month', limit: 31556926, inSeconds: 2629743 },
+  { name: 'year', limit: null, inSeconds: 31556926 }
 ]
 Vue.filter('timeAgo', (date) => {
   const diff = (Date.now() - date) / 1000
   if (diff < 5) {
-    return "just now"
+    return 'just now'
   }
 
-  for (let i=0; i<units.length; i++) {
+  for (let i = 0; i < units.length; i++) {
     const unit = units[i]
     if (diff < unit.limit || !unit.limit) {
-      const count =  Math.floor(diff / unit.inSeconds)
-      return `${ count } ${ unit.name }${ count > 1 ? 's' : '' } ago`
+      const count = Math.floor(diff / unit.inSeconds)
+      return `${count} ${unit.name}${count > 1 ? 's' : ''} ago`
     }
   }
-
 })
