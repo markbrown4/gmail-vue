@@ -1,3 +1,4 @@
+import _ from 'lodash'
 
 const fetchThreads = ({ commit }) => {
   window.fetch('/static/api/threads/index.json')
@@ -16,7 +17,12 @@ const fetchThread = ({ commit }, id) => {
     })
 }
 
+const search = _.debounce(({ commit }, query) => {
+  commit('SEARCH_QUERY', query)
+}, 300)
+
 export default {
   fetchThreads,
-  fetchThread
+  fetchThread,
+  search
 }

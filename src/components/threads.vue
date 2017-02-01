@@ -1,6 +1,6 @@
 <template>
   <ul id="threads">
-    <li v-for="thread in threads" :class="{ unread: thread.unread, selected: isSelected(thread) }">
+    <li v-for="thread in filteredThreads" :class="{ unread: thread.unread, selected: isSelected(thread) }">
       <router-link :to="`/threads/${thread.id}`">
         <time>{{ thread.lastMessage.createdAt | smartDate }}</time>
         <span class="check" v-on:click.stop.prevent="toggleSelected(thread)"></span>
@@ -19,6 +19,8 @@
 
 <script>
 
+import Fuse from 'fuse.js'
+
 export default {
   name: 'threads',
   created() {
@@ -28,8 +30,25 @@ export default {
     threads() {
       return this.$store.state.threads
     },
+    filteredThreads() {
+      if (this.query.length === 0) {
+        return this.threads
+      } else {
+        return new Fuse(this.threads, {
+          keys: [
+            'lastMessage.subject',
+            'lastMessage.snippet',
+            'participants.firstName',
+            'participants.lastName'
+          ]
+        }).search(this.query)
+      }
+    },
     selectedThreadIds() {
       return this.$store.state.selectedThreadIds
+    },
+    query() {
+      return this.$store.state.query
     },
   },
   methods: {

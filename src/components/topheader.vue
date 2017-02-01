@@ -10,7 +10,7 @@
       </ul>
     </DropDown>
     <form class="search">
-      <input name="query">
+      <input name="query" @input="search">
       <button type="submit" class="primary-btn">
         <span class="icon-search"></span>
       </button>
@@ -25,6 +25,11 @@ export default {
   name: 'topheader',
   components: {
     DropDown
+  },
+  methods: {
+    search(event) {
+      this.$store.dispatch('search', event.target.value)
+    }
   }
 }
 </script>

@@ -6,6 +6,7 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
+    query: '',
     threads: [],
     selectedThreadIds: [],
     thread: null,
@@ -50,6 +51,9 @@ const store = new Vuex.Store({
     },
     THREAD_FETCHED: (state, thread) => {
       state.thread = thread
+    },
+    SEARCH_QUERY: (state, query) => {
+      state.query = query
     }
   },
   actions
