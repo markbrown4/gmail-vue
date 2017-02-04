@@ -23,7 +23,7 @@
         <img class="avatar" :src="message.from.avatarUrl">
         <div class="from">
           <span class="name">{{ message.from | smartName }}</span>
-          <span class="email">&lt;{{ message.from.email }}&gt;</span>
+          <span class="email" v-if="message.active">&lt;{{ message.from.email }}&gt;</span>
         </div>
         <div class="to" v-if="message.active">to
           <span v-for="person, index in message.to">{{ person | smartName(false) }}{{ index == message.to.length - 1 ? '': ', ' }}</span>
