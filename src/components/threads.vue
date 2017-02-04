@@ -1,6 +1,6 @@
 <template>
   <ul id="threads">
-    <li v-for="thread in filteredThreads" :class="{ unread: thread.unread, selected: isSelected(thread) }">
+    <li v-for="thread in filteredThreads" class="thread" :class="{ unread: thread.unread, selected: isSelected(thread) }">
       <router-link :to="`/threads/${thread.id}`">
         <time>{{ thread.lastMessage.createdAt | smartDate }}</time>
         <span class="check" v-on:click.stop.prevent="toggleSelected(thread)"></span>
@@ -17,8 +17,55 @@
   </ul>
 </template>
 
-<script>
+<style lang="scss" scoped>
+.threads {
+  border-top: 1px solid #e5e5e5;
+  margin-top: 10px;
+}
+time {
+  float: right;
+  width: 55px;
+  text-align: right;
+  padding: 0 20px;
+  background: #f5f5f5;
+  position: relative;
+}
+.people {
+  float: left;
+  width: 180px;
+}
+.body {
+  color: #777;
+}
+a {
+  display: block;
+  padding: 8px 0 8px 10px;
+  color: inherit;
+  text-decoration: none;
+}
+.thread {
+  background: #f5f5f5;
+  border-bottom: 1px solid #e5e5e5;
+  white-space: nowrap;
+  &.unread {
+    background: #fff;
+    time {
+      background: #fff;
+    }
+    .subject, .name.unread, time {
+      font-weight: bold;
+    }
+  }
+  &.selected {
+    background: #ffc;
+    time {
+      background: #ffc;
+    }
+  }
+}
+</style>
 
+<script>
 import Fuse from 'fuse.js'
 
 export default {

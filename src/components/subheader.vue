@@ -1,5 +1,5 @@
 <template>
-  <div id="sub-header">
+  <div class="sub-header">
     <h1 class="app-name"><span>V</span>mail</h1>
     <div class="paging" v-if="page">
       <strong>{{ page.from }}-{{ page.to }}</strong>
@@ -29,6 +29,44 @@
     <a href class="btn" v-if="$route.name == 'inbox' && this.noneSelected"><i class="icon icon-refresh"></i></a>
   </div>
 </template>
+
+<style lang="scss" scoped>
+@import '../scss/common';
+
+.sub-header {
+  padding: 8px 30px 8px 200px;
+  border-bottom: 1px solid #e5e5e5;
+  height: 30px;
+}
+.app-name {
+  margin: 0 0 0 -170px;
+  line-height: 32px;
+  color: $red;
+  float: left;
+}
+.paging {
+  float: right;
+  line-height: 32px;
+  .split-btn {
+    float: right;
+    margin: 0 0 0 10px;
+    line-height: 1.2;
+  }
+  .btn {
+    .icon { opacity: .5 }
+    &:hover .icon {
+      opacity: .9;
+    }
+  }
+  .inactive {
+    cursor: default;
+    .icon { opacity: .3 }
+    &:hover .icon {
+      opacity: .3;
+    }
+  }
+}
+</style>
 
 <script>
 import DropDown from './dropdown'

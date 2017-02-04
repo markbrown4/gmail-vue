@@ -1,15 +1,23 @@
 <template>
-  <div id="wrapper" v-on:click="bodyClick">
+  <div v-on:click="bodyClick">
     <TopHeader />
     <SubHeader />
     <TopNav />
-    <div id="content">
+    <div class="content">
       <router-view><router-view>
     </div>
     <Compose />
     <Flash />
   </div>
 </template>
+
+<style lang="scss" scoped>
+.content {
+  overflow: auto;
+  overflow-x: hidden;
+  margin: 0 15px 0 185px;
+}
+</style>
 
 <script>
 import '../scss/app.scss'
