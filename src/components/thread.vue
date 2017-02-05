@@ -2,7 +2,7 @@
   <div class="thread" v-if="thread">
     <h1>{{ thread.messages[0].subject }}</h1>
     <ul class="messages">
-      <li v-for="message, index in thread.messages" class="message" :class="{ active : message.active }" v-on:click="toggleActive(message)">
+      <li v-for="message, index in thread.messages" class="message" :class="{ active : message.active }" @click="toggleActive(message)">
         <div class="thread-tools">
           <time>
             {{ message.createdAt | smartDate }}

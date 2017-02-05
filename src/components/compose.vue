@@ -1,5 +1,5 @@
 <template>
-  <div class="compose" v-if="open">
+  <div class="compose" v-if="active" @click.stop>
     <div class="header section">
       <a class="close" @click="close">×</a>
       <h2>New Message</h2>
@@ -143,15 +143,18 @@ export default {
     return {
       currentUser: window.currentUser,
       message: getInitialMessage(),
-      open: false,
+      active: false,
       activeSection: 'to',
       ccActive: false,
       bccActive: false
     }
   },
   methods: {
+    open() {
+      this.active = true
+    },
     close() {
-      this.open = false
+      this.active = false
     },
     send() {
       this.close()
@@ -165,9 +168,9 @@ export default {
     }
   },
   created() {
-    eventBus.$on('composeMessage', () => {
-      this.open = true
-    })
+    eventBus.$on('BODY_CLICK', this.close)
+    eventBus.$on('KEYUP_ESCAPE', this.close)
+    eventBus.$on('COMPOSE_OPEN', this.open)
   }
 }
 </script>

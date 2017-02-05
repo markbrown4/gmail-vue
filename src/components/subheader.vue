@@ -10,15 +10,15 @@
         <a href class="btn btn-mini" title="Next"><i class="icon icon-next"></i></a>
       </div>
     </div>
-    <router-link v-if="$route.name != 'inbox'" class="btn" to="/" title="Back to Inbox"><i class="icon icon-back"></i></router-link>
+    <router-link to="/" v-if="$route.name != 'inbox'" class="btn" title="Back to Inbox"><i class="icon icon-back"></i></router-link>
     <DropDown class="btn" v-if="$route.name == 'inbox'">
-      <a v-on:click.stop="bulkToggle" class="check" :class="{ 'all-selected': this.allSelected, 'some-selected': this.someSelected }"></a>
+      <a @click.stop="bulkToggle" class="check" :class="{ 'all-selected': this.allSelected, 'some-selected': this.someSelected }"></a>
       <i class="icon icon-down"></i>
       <ul>
-        <li><a v-on:click="selectAll">All</a></li>
-        <li><a v-on:click="selectNone">None</a></li>
-        <li><a v-on:click="selectRead">Read</a></li>
-        <li><a v-on:click="selectUnread">Unread</a></li>
+        <li><a @click="selectAll">All</a></li>
+        <li><a @click="selectNone">None</a></li>
+        <li><a @click="selectRead">Read</a></li>
+        <li><a @click="selectUnread">Unread</a></li>
       </ul>
     </DropDown>
     <div class="split-btn" v-if="$route.name == 'thread' || someSelected">

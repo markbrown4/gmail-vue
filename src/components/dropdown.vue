@@ -1,5 +1,5 @@
 <template>
-  <div class="drop-down" :class="{active: active}" v-on:click.stop="toggle()">
+  <div class="drop-down" :class="{active: active}" @click.stop="toggle()">
     <slot />
   </div>
 </template>
@@ -53,7 +53,7 @@ export default {
     }
   },
   created() {
-    eventBus.$on('bodyClick', () => {
+    eventBus.$on('BODY_CLICK', () => {
       this.active = false;
     })
   }

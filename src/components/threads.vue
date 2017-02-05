@@ -3,7 +3,7 @@
     <li v-for="thread in filteredThreads" class="thread" :class="{ unread: thread.unread, selected: isSelected(thread) }">
       <router-link :to="`/threads/${thread.id}`">
         <time>{{ thread.lastMessage.createdAt | smartDate }}</time>
-        <span class="check" v-on:click.stop.prevent="toggleSelected(thread)"></span>
+        <span class="check" @click.stop.prevent="toggleSelected(thread)"></span>
         <span class="people">
           <span class="name" :class="{unread: person.unread}" v-for="person, index in thread.participants">
             {{ person | smartName(thread.messageCount == 1) }}{{ index == thread.participants.length - 1 ? '' : ', ' }}

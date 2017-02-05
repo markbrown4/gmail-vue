@@ -1,5 +1,5 @@
 <template>
-  <div v-on:click="bodyClick">
+  <div>
     <TopHeader />
     <SubHeader />
     <TopNav />
@@ -38,10 +38,16 @@ export default {
     Flash,
     Compose
   },
-  methods: {
-    bodyClick() {
-      eventBus.$emit('bodyClick')
-    }
+  created() {
+    document.documentElement.addEventListener('click', () => {
+      eventBus.$emit('BODY_CLICK')
+    }, false)
+
+    window.addEventListener('keyup', (event) => {
+      if (event.keyCode == 27) {
+        eventBus.$emit('KEYUP_ESCAPE')
+      }
+    }, false)
   }
 }
 </script>

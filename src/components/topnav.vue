@@ -1,11 +1,11 @@
 <template>
   <div class="nav">
-    <a href class="compose" @click.prevent="compose">COMPOSE</a>
+    <a class="compose" @click.stop="compose">COMPOSE</a>
     <ul>
       <li class="active"><router-link to="/">Inbox</router-link></li>
-      <li><a href>Sent Mail</a></li>
-      <li><a href>Drafts</a></li>
-      <li><a href>Trash</a></li>
+      <li><a>Sent Mail</a></li>
+      <li><a>Drafts</a></li>
+      <li><a>Trash</a></li>
     </ul>
   </div>
 </template>
@@ -64,7 +64,7 @@ export default {
   name: 'topnav',
   methods: {
     compose() {
-      eventBus.$emit('composeMessage')
+      eventBus.$emit('COMPOSE_OPEN')
     }
   }
 }
