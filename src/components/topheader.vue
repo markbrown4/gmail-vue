@@ -2,11 +2,11 @@
   <div class="header">
     <span class="logo"><img src="/static/logo.png"></span>
     <DropDown class="account-nav">
-      <img class="avatar" src="/static/avatars/me.jpg">
+      <img class="avatar" :src="currentUser.avatarUrl">
       <ul class="align-right">
-        <li><a href>Mark Brown &lt;markbrown4@gmail.com&gt;</a></li>
-        <li><a href>Mark Brown &lt;mark@inspire9.com&gt;</a></li>
-        <li><a href>Mark Brown &lt;mark@adioso.com&gt;</a></li>
+        <li v-for="account in currentUser.accounts">
+          <a @click="message.from = account">{{ account | nameAndEmail }}</a>
+        </li>
       </ul>
     </DropDown>
     <form class="search">
@@ -80,6 +80,11 @@ export default {
   name: 'topheader',
   components: {
     DropDown
+  },
+  data() {
+    return {
+      currentUser: window.currentUser
+    }
   },
   methods: {
     search(event) {

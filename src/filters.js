@@ -22,6 +22,12 @@ Vue.filter('smartName', (person, fullName = false) => {
   }
 })
 
+Vue.filter('nameAndEmail', (person) => {
+  const name = `${person.firstName} ${person.lastName}`.trim()
+
+  return `${name} <${person.email}>`
+})
+
 const units = [
   { name: 'second', limit: 60, inSeconds: 1 },
   { name: 'minute', limit: 3600, inSeconds: 60 },

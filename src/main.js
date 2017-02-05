@@ -4,6 +4,7 @@ import Vue from 'vue'
 import router from './router'
 import filters from './filters'
 import store from './store'
+import directives from './directives'
 import App from './components/app'
 
 new Vue({
@@ -12,5 +13,6 @@ new Vue({
   store,
   router,
   filters,
+  directives,
   components: { App }
 })

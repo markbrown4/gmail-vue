@@ -1,3 +1,4 @@
+
 import Vue from 'vue'
 import Vuex from 'vuex'
 import actions from './actions'
@@ -56,7 +57,6 @@ const store = new Vuex.Store({
       state.query = query
     },
     FLASH_SHOW: (state, message) => {
-      console.log(message)
       state.flashes.push(message)
     },
     FLASH_HIDE: (state, message) => {

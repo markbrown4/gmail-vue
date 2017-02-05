@@ -1,9 +1,10 @@
+
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-Vue.use(VueRouter)
-
 import Threads from './components/threads'
 import Thread from './components/thread'
+
+Vue.use(VueRouter)
 
 export default new VueRouter({
   routes: [

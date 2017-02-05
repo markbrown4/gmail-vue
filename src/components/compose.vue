@@ -5,84 +5,55 @@
       <h2>New Message</h2>
     </div>
     <div class="section">
-      <div>
-        <input class="full" name="recipients" placeholder="Recipients">
+      <div v-if="activeSection != 'to'">
+        <input class="full" v-model="message.to" placeholder="Recipients" @focus="focusOnSection('to')">
       </div>
-      <div style="display: none">
+      <div v-if="activeSection == 'to'">
         <div class="input">
           <label for="message_to">To</label>
           <div class="fit">
-            <input id="message_to" class="full">
+            <input v-model="message.to" class="full" v-focus>
           </div>
         </div>
-        <div class="input">
+        <div class="input" v-if="ccActive">
           <label for="message_cc">Cc</label>
           <div class="fit">
-            <input id="message_cc" class="full">
+            <input v-model="message.cc" class="full" v-focus>
           </div>
         </div>
-        <div class="input">
+        <div class="input" v-if="bccActive">
           <label for="message_bcc">Bcc</label>
           <div class="fit">
-            <input id="message_bcc" class="full">
+            <input v-model="message.bcc" class="full" v-focus>
           </div>
         </div>
         <div>
           <label>From</label>
-          <a href class="bcc">Bcc</a>
-          <a href class="cc">Cc</a>
+          <a class="bcc" @click="bccActive = true" v-if="!bccActive">Bcc</a>
+          <a class="cc" @click="ccActive = true" v-if="!ccActive">Cc</a>
           <DropDown class="from-address">
-            <span>Mark Brown &lt;markbrown4@gmail.com&gt;</span>
+            <span>{{ message.from | nameAndEmail }}</span>
             <i class="icon icon-down"></i>
             <ul class="align-right">
-              <li><a href>Mark Brown &lt;markbrown4@gmail.com&gt;</a></li>
-              <li><a href>Mark Brown &lt;mark@inspire9.com&gt;</a></li>
-              <li><a href>Mark Brown &lt;mark@adioso.com&gt;</a></li>
+              <li v-for="account in currentUser.accounts">
+                <a @click="message.from = account">{{ account | nameAndEmail }}</a>
+              </li>
             </ul>
           </DropDown>
         </div>
       </div>
     </div>
     <div class="section">
-      <input id="message_subject" class="full" placeholder="Subject">
+      <input class="full" placeholder="Subject" @focus="focusOnSection('subject')">
     </div>
     <div class="section">
-      <textarea id="message_body" placeholder="Body"></textarea>
+      <textarea placeholder="Body" @focus="focusOnSection('body')"></textarea>
     </div>
     <div class="footer section">
       <input type="submit" class="btn primary-btn" value="Send" @click="send">
     </div>
   </div>
 </template>
-
-<script>
-import eventBus from '../event_bus'
-import DropDown from './dropdown'
-
-export default {
-  name: 'compose',
-  components: {
-    DropDown
-  },
-  data() {
-    return { open: false }
-  },
-  methods: {
-    close() {
-      this.open = false
-    },
-    send() {
-      this.close()
-      this.$store.dispatch('flash', 'Sending...')
-    }
-  },
-  created() {
-    eventBus.$on('composeMessage', () => {
-      this.open = true;
-    })
-  }
-}
-</script>
 
 <style lang="scss" scoped>
 .compose {
@@ -150,3 +121,53 @@ label {
   background: #F5F5F5;
 }
 </style>
+
+<script>
+import eventBus from '../event_bus'
+import DropDown from './dropdown'
+
+const getInitialMessage = () => ({
+  to: '',
+  cc: '',
+  bcc: '',
+  body: '',
+  from: window.currentUser
+})
+
+export default {
+  name: 'compose',
+  components: {
+    DropDown
+  },
+  data() {
+    return {
+      currentUser: window.currentUser,
+      message: getInitialMessage(),
+      open: false,
+      activeSection: 'to',
+      ccActive: false,
+      bccActive: false
+    }
+  },
+  methods: {
+    close() {
+      this.open = false
+    },
+    send() {
+      this.close()
+      this.message = getInitialMessage()
+      this.$store.dispatch('flash', 'Sending...')
+    },
+    focusOnSection(section) {
+      this.activeSection = section
+      this.ccActive = this.message.cc !== ''
+      this.bccActive = this.message.bcc !== ''
+    }
+  },
+  created() {
+    eventBus.$on('composeMessage', () => {
+      this.open = true
+    })
+  }
+}
+</script>
