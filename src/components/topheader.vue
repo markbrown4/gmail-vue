@@ -12,7 +12,7 @@
     <form class="search">
       <input class="search-input" name="query" @input="search">
       <button type="submit" class="search-btn primary-btn">
-        <span class="icon-search"></span>
+        <Icon name="search" />
       </button>
     </form>
   </div>
@@ -63,23 +63,19 @@
   border-radius: 0 3px 3px 0;
 }
 .icon-search {
-  display: inline-block;
-  vertical-align: middle;
-  width: 15px;
-  height: 16px;
   margin-top: -3px;
-  background: url(/static/icons/search.png) 50% 50% no-repeat;
-  background-size: auto 15px;
 }
 </style>
 
 <script>
+import Icon from './icon'
 import DropDown from './dropdown'
 
 export default {
   name: 'topheader',
   components: {
-    DropDown
+    DropDown,
+    Icon
   },
   data() {
     return {

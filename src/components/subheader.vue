@@ -6,14 +6,14 @@
       of
       <strong>{{ page.count }}</strong>
       <div class="split-btn">
-        <a href class="btn btn-mini" title="Previous"><i class="icon icon-prev"></i></a>
-        <a href class="btn btn-mini" title="Next"><i class="icon icon-next"></i></a>
+        <a href class="btn btn-mini" title="Previous"><Icon name="prev" /></a>
+        <a href class="btn btn-mini" title="Next"><Icon name="next" /></a>
       </div>
     </div>
-    <router-link to="/" v-if="$route.name != 'inbox'" class="btn" title="Back to Inbox"><i class="icon icon-back"></i></router-link>
+    <router-link to="/" v-if="$route.name != 'inbox'" class="btn" title="Back to Inbox"><Icon name="back" /></router-link>
     <DropDown class="btn" v-if="$route.name == 'inbox'">
-      <a @click.stop="bulkToggle" class="check" :class="{ 'all-selected': this.allSelected, 'some-selected': this.someSelected }"></a>
-      <i class="icon icon-down"></i>
+      <a @click.stop="bulkToggle" class="check" :class="{ 'selected': this.allSelected, 'some-selected': this.someSelected }"></a>
+      <Icon name="down" />
       <ul>
         <li><a @click="selectAll">All</a></li>
         <li><a @click="selectNone">None</a></li>
@@ -22,11 +22,11 @@
       </ul>
     </DropDown>
     <div class="split-btn" v-if="$route.name == 'thread' || someSelected">
-      <a href class="btn" title="Archive"><i class="icon icon-archive"></i></a>
-      <a href class="btn" title="Report Spam"><i class="icon icon-spam"></i></a>
-      <a href class="btn" title="Delete"><i class="icon icon-delete"></i></a>
+      <a href class="btn" title="Archive"><Icon name="archive" /></a>
+      <a href class="btn" title="Report Spam"><Icon name="spam" /></a>
+      <a href class="btn" title="Delete"><Icon name="delete" /></a>
     </div>
-    <a href class="btn" v-if="$route.name == 'inbox' && this.noneSelected"><i class="icon icon-refresh"></i></a>
+    <a href class="btn" v-if="$route.name == 'inbox' && this.noneSelected"><Icon name="refresh" /></a>
   </div>
 </template>
 
@@ -70,10 +70,15 @@
 
 <script>
 import DropDown from './dropdown'
+import Icon from './icon'
 import store from '../store'
 
 export default {
   name: 'subheader',
+  components: {
+    DropDown,
+    Icon
+  },
   computed: {
     threads() {
       return this.$store.state.threads
@@ -114,9 +119,6 @@ export default {
         this.selectNone()
       }
     }
-  },
-  components: {
-    DropDown
   }
 }
 </script>

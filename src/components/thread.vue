@@ -9,9 +9,9 @@
             ({{ message.createdAt | timeAgo }})
           </time>
           <div class="split-btn" v-if="message.active">
-            <a href class="btn"><i class="icon icon-reply"></i></a>
+            <a href class="btn"><Icon name="reply" /></a>
             <DropDown class="btn btn-mini">
-              <i class="icon icon-down"></i>
+              <Icon name="down" />
               <ul class="align-right">
                 <li><a href>Reply</a></li>
                 <li><a href>Reply all</a></li>
@@ -118,9 +118,14 @@ h1 {
 
 <script>
 import DropDown from './dropdown'
+import Icon from './icon'
 
 export default {
   name: 'thread',
+  components: {
+    DropDown,
+    Icon
+  },
   created() {
     this.$store.dispatch('fetchThread', this.$route.params.id)
   },
@@ -141,9 +146,6 @@ export default {
     toggleActive(message) {
       this.$set(message, 'active', !message.active)
     }
-  },
-  components: {
-    DropDown
   }
 }
 </script>

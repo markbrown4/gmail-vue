@@ -1,3 +1,8 @@
+<template>
+<i :class="`icon icon-${name}`"></i>
+</template>
+
+<style lang="scss" scoped>
 .icon {
   display: inline-block;
   background-size: 100%;
@@ -53,3 +58,11 @@
   width: (28px / 2);
   height: (28px / 2);
 }
+</style>
+
+<script>
+export default {
+  name: 'icon',
+  props: ['name']
+}
+</script>

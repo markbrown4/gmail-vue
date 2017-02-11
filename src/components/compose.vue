@@ -33,7 +33,7 @@
           <a class="cc" @click="ccActive = true" v-if="!ccActive">Cc</a>
           <DropDown class="from-address">
             <span>{{ message.from | nameAndEmail }}</span>
-            <i class="icon icon-down"></i>
+            <Icon name="down" />
             <ul class="align-right">
               <li v-for="account in currentUser.accounts">
                 <a @click="message.from = account">{{ account | nameAndEmail }}</a>
@@ -125,6 +125,7 @@ label {
 <script>
 import eventBus from '../event_bus'
 import DropDown from './dropdown'
+import Icon from './icon'
 
 const getInitialMessage = () => ({
   to: '',
@@ -137,7 +138,8 @@ const getInitialMessage = () => ({
 export default {
   name: 'compose',
   components: {
-    DropDown
+    DropDown,
+    Icon
   },
   data() {
     return {
