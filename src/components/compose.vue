@@ -124,7 +124,7 @@ label {
 
 <script>
 import eventBus from '../event_bus'
-import DropDown from './dropdown'
+import DropDown from './drop-down'
 import Icon from './icon'
 
 const getInitialMessage = () => ({

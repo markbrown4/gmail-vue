@@ -69,7 +69,7 @@
 
 <script>
 import Icon from './icon'
-import DropDown from './dropdown'
+import DropDown from './drop-down'
 
 export default {
   name: 'topheader',

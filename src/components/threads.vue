@@ -3,7 +3,7 @@
     <li v-for="thread in filteredThreads" class="thread" :class="{ unread: thread.unread, selected: isSelected(thread) }">
       <router-link :to="`/threads/${thread.id}`">
         <time>{{ thread.lastMessage.createdAt | smartDate }}</time>
-        <span class="check" @click.stop.prevent="toggleSelected(thread)"></span>
+        <CheckBox :selected="isSelected(thread)" :onChange="() => toggleSelected(thread)" />
         <span class="people">
           <span class="name" :class="{unread: person.unread}" v-for="person, index in thread.participants">
             {{ person | smartName(thread.messageCount == 1) }}{{ index == thread.participants.length - 1 ? '' : ', ' }}
@@ -68,8 +68,13 @@ a {
 <script>
 import Fuse from 'fuse.js'
 
+import CheckBox from './check-box'
+
 export default {
   name: 'threads',
+  components: {
+    CheckBox
+  },
   created() {
     this.$store.dispatch('fetchThreads')
   },

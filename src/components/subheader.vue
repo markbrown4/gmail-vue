@@ -12,7 +12,7 @@
     </div>
     <router-link to="/" v-if="$route.name != 'inbox'" class="btn" title="Back to Inbox"><Icon name="back" /></router-link>
     <DropDown class="btn" v-if="$route.name == 'inbox'">
-      <a @click.stop="bulkToggle" class="check" :class="{ 'selected': this.allSelected, 'some-selected': this.someSelected }"></a>
+      <CheckBox :onChange="() => bulkToggle()" :selected="allSelected" :someSelected="someSelected" />
       <Icon name="down" />
       <ul>
         <li><a @click="selectAll">All</a></li>
@@ -69,15 +69,18 @@
 </style>
 
 <script>
-import DropDown from './dropdown'
+import DropDown from './drop-down'
 import Icon from './icon'
+import CheckBox from './check-box'
+
 import store from '../store'
 
 export default {
   name: 'subheader',
   components: {
     DropDown,
-    Icon
+    Icon,
+    CheckBox
   },
   computed: {
     threads() {

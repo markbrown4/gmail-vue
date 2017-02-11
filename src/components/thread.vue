@@ -117,7 +117,7 @@ h1 {
 </style>
 
 <script>
-import DropDown from './dropdown'
+import DropDown from './drop-down'
 import Icon from './icon'
 
 export default {
