@@ -1,5 +1,5 @@
 <template>
-  <ul id="threads">
+  <ul class="threads">
     <li v-for="thread in filteredThreads" class="thread" :class="{ unread: thread.unread, selected: isSelected(thread) }">
       <router-link :to="`/threads/${thread.id}`">
         <time>{{ thread.lastMessage.createdAt | smartDate }}</time>
