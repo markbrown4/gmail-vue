@@ -4,7 +4,7 @@
     <SubHeader />
     <TopNav />
     <div class="content">
-      <router-view><router-view>
+      <router-view></router-view>
     </div>
     <Compose />
     <Flash />
